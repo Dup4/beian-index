@@ -11,7 +11,6 @@ export default defineConfig({
     },
   ],
   fastRefresh: {},
-  favicon: "/favicon.png",
   publicPath: "/",
   hash: true,
 });
