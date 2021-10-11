@@ -26,7 +26,7 @@ jobs:
 
       - name: Set Package Version
         working-directory: "./.github/scripts"
-        run: echo "::set-env name=PACKAGE_VERSION::$(./get_release_version.mjs)"
+        run: echo "PACKAGE_VERSION=$(./get_release_version.mjs)" >> $GITHUB_ENV
 
       - name: Build
         run: |
@@ -42,7 +42,7 @@ jobs:
           cp ./dist/index.html ./dist/404.html
 
       - name: Release
-        if: ${{ env.PACKAGE_VERSION != "" }}
+        if: ${{ env.PACKAGE_VERSION != '' }}
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
@@ -51,6 +51,7 @@ jobs:
           clean-exclude: CNAME
 
       - name: Create Release
+        if: ${{ env.PACKAGE_VERSION != '' }}
         uses: actions/create-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
