@@ -26,7 +26,9 @@ jobs:
 
       - name: Set Package Version
         working-directory: "./.github/scripts"
-        run: echo "PACKAGE_VERSION=$(./get_release_version.mjs)" >> $GITHUB_ENV
+        run: |
+          echo "PACKAGE_VERSION=$(./get_release_version.mjs)" >> $GITHUB_ENV
+          echo ${{ env.PACKAGE_VERSION }}
 
       - name: Build
         run: |
