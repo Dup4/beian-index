@@ -1,0 +1,62 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+   release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Deps
+        run: |
+          yarn
+          yarn global add zx
+
+      - name: Set Package Version
+        working-directory: "./.github/scripts"
+        run: echo "::set-env name=PACKAGE_VERSION::$(./get_release_version.mjs)"
+
+      - name: Build
+        run: |
+          yarn build
+
+      - name: Minify HTML
+        uses: Dup4/minify-html-action@v9
+        with:
+          src: './dist/index.html'
+
+      - name: Enable 404.html
+        run: |
+          cp ./dist/index.html ./dist/404.html
+
+      - name: Release
+        if: ${{ env.PACKAGE_VERSION != "" }}
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: true
+          clean-exclude: CNAME
+
+      - name: Create Release
+        uses: actions/create-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commitish: gh-pages
+          tag_name: ${{ env.PACKAGE_VERSION }}
+          release_name: Release ${{ env.PACKAGE_VERSION }}
+          draft: false
+          prerelease: false

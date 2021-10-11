@@ -13,8 +13,4 @@ export default defineConfig({
   fastRefresh: {},
   favicon: "/favicon.png",
   publicPath: "/",
-  analytics: {
-    ga: "",
-    baidu: "",
-  },
 });
