@@ -54,7 +54,7 @@ function getBeianItem(hostname: string) {
 }
 
 function getHomePageUrl(hostname: string) {
-  return hostname.trim().slice(4);
+  return "https://" + hostname.trim().slice(4);
 }
 
 function getHomePageTitle(hostname: string) {
