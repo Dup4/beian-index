@@ -31,9 +31,7 @@ jobs:
 
       - name: Build
         run: |
-          echo ${{ env.GITHUB_REPOSITORY }}
-          echo $GITHUB_REPOSITORY
-          sed -i "s|publicPath: \"/\"|publicPath: \"//cdn.jsdelivr.net/gh/${{ env.GITHUB_REPOSITORY }}@${{ env.PACKAGE_VERSION }}/\"|" .umirc.ts
+          sed -i "s|publicPath: \"/\"|publicPath: \"//cdn.jsdelivr.net/gh/${{ github.repository }}@${{ env.PACKAGE_VERSION }}/\"|" .umirc.ts
           cat .umirc.ts
           yarn build
 
