@@ -10,6 +10,7 @@ export default defineConfig({
       component: "@/pages/index",
     },
   ],
+  title: false,
   fastRefresh: {},
   publicPath: "/",
   hash: true,
