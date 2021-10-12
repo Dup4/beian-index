@@ -18,4 +18,6 @@ if (version !== latestVersion) {
   releaseVersion = version;
 }
 
+console.log(process.env.GITHUB_REPOSITORY);
+
 console.log(releaseVersion);
