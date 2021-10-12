@@ -8,16 +8,22 @@ const packageJsonPath = path.join(__dirname, "../../package.json");
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath));
 
 const version = packageJson["version"];
-const latestVersion = (
+let releaseVersion = version;
+
+const localLatestVersion = (
   await nothrow($`git describe --tags $(git rev-list --tags --max-count=1)`)
 ).stdout.trim();
 
-let releaseVersion = "";
-
-if (version !== latestVersion) {
-  releaseVersion = version;
+if (version === localLatestVersion) {
+  releaseVersion = "";
 }
 
-console.log(process.env.GITHUB_REPOSITORY);
+const remoteTagList = (
+  await nothrow($`git ls-remote --tags origin`)
+).stdout.trim();
+
+if (remoteTagList.indexOf(version) !== -1) {
+  releaseVersion = "";
+}
 
 console.log(releaseVersion);
