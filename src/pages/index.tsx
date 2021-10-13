@@ -30,6 +30,10 @@ const beianInfoDict: Record<string, BeianInfo> = {
     title: "信息分析",
     beianID: "浙ICP备20011170号-5",
   },
+  "www.acnow.cn": {
+    title: "灵活判题",
+    beianID: "浙ICP备20011170号-7",
+  },
 };
 
 function getYear(startYear: number) {
