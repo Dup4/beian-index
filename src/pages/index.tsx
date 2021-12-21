@@ -34,6 +34,10 @@ const beianInfoDict: Record<string, BeianInfo> = {
     title: "灵活判题",
     beianID: "浙ICP备20011170号-7",
   },
+  "www.hznuoj.com": {
+    title: "灵活判题",
+    beianID: "浙ICP备20011170号-8",
+  },
 };
 
 function getYear(startYear: number) {
